@@ -1,0 +1,37 @@
+[package]
+name = "desktop-pet"
+version = "0.1.0"
+description = "Adaptive Desktop Pet Companion"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.31", features = ["bundled"] }
+tokio = { version = "1", features = ["time", "rt-multi-thread"] }
+rand = "0.8"
+# Only used by the optional AI chat feature (ai.rs), which is disabled by
+# default and never called unless the user turns it on and supplies their
+# own API key. rustls-tls avoids depending on a system OpenSSL install.
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+
+# Only used by app_detect.rs (Section 28's application-awareness), and only
+# compiled in on Windows — the app's primary target. See app_detect.rs and
+# the README's "Rust verification notes" for why this is the single least-
+# verified file in the project.
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_System_Threading",
+    "Win32_System_ProcessStatus",
+] }
+
+[[bin]]
+name = "desktop-pet"
+path = "src/main.rs"

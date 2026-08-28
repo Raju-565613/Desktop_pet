@@ -1,0 +1,16 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capabilities for the main overlay window",
+  "windows": ["overlay", "pethouse"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-set-ignore-cursor-events",
+    "core:window:allow-set-size",
+    "core:window:allow-set-position",
+    "core:window:allow-is-visible",
+    "core:window:allow-set-visible",
+    "core:event:allow-listen",
+    "core:event:allow-unlisten"
+  ]
+}
